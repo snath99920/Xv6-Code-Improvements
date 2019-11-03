@@ -103,12 +103,12 @@ sys_uptime(void)
   return xticks;
 }
 
-int
-sys_set_priority(void)
-{
-  int pid, priority;
-  if((argint(0, &pid) < 0)||(argint(1, &priority) < 0))
-    return -1;
+// int
+// sys_set_priority(void)
+// {
+//   int pid, priority;
+//   if((argint(0, &pid) < 0)||(argint(1, &priority) < 0))
+//     return -1;
 
-  return set_priority(pid, priority);
-}
+//   return set_priority(pid, priority);
+// }

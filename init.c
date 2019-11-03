@@ -19,17 +19,17 @@ main(void)
   dup(0);  // stdout
   dup(0);  // stderr
 
-  #ifdef DEFAULT
-    printf(1, "Scheduling by Round-robin\n");
-  #else
-  #ifdef FCFS
-    printf(1, "Scheduling by FCFS\n");
-  #else
-  #ifdef PRIORITY
-    printf(1, "Priority Scheduling\n");
-  #endif
-  #endif
-  #endif
+  // #ifdef DEFAULT
+  //   printf(1, "Scheduling by Round-robin\n");
+  // #else
+  // #ifdef FCFS
+  //   printf(1, "Scheduling by FCFS\n");
+  // #else
+  // #ifdef PRIORITY
+  //   printf(1, "Priority Scheduling\n");
+  // #endif
+  // #endif
+  // #endif
 
   for(;;){
     printf(1, "init: starting sh\n");
