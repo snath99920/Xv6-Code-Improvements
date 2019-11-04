@@ -3915,6 +3915,11 @@ idestart(struct buf *b)
 80101f34:	89 c6                	mov    %eax,%esi
 80101f36:	81 fb e7 03 00 00    	cmp    $0x3e7,%ebx
 80101f3c:	0f 87 96 00 00 00    	ja     80101fd8 <idestart+0xb8>
+static inline uchar
+inb(ushort port)
+{
+  uchar data;
+
   asm volatile("in %1,%0" : "=a" (data) : "d" (port));
 80101f42:	b9 f7 01 00 00       	mov    $0x1f7,%ecx
 80101f47:	89 f6                	mov    %esi,%esi
@@ -3925,6 +3930,11 @@ idestart(struct buf *b)
 80101f53:	83 e0 c0             	and    $0xffffffc0,%eax
 80101f56:	3c 40                	cmp    $0x40,%al
 80101f58:	75 f6                	jne    80101f50 <idestart+0x30>
+}
+
+static inline void
+outb(ushort port, uchar data)
+{
   asm volatile("out %0,%1" : : "a" (data), "d" (port));
 80101f5a:	31 ff                	xor    %edi,%edi
 80101f5c:	ba f6 03 00 00       	mov    $0x3f6,%edx
@@ -3979,6 +3989,11 @@ idestart(struct buf *b)
 80101fb8:	b8 30 00 00 00       	mov    $0x30,%eax
 80101fbd:	89 ca                	mov    %ecx,%edx
 80101fbf:	ee                   	out    %al,(%dx)
+}
+
+static inline void
+outsl(int port, const void *addr, int cnt)
+{
   asm volatile("cld; rep outsl" :
 80101fc0:	b9 80 00 00 00       	mov    $0x80,%ecx
     outsl(0x1f0, b->data, BSIZE/4);

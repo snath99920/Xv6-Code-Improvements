@@ -670,6 +670,7 @@ SYSCALL(waitx)
  409:	c3                   	ret    
 
 0000040a <set_priority>:
+SYSCALL(set_priority)
  40a:	b8 17 00 00 00       	mov    $0x17,%eax
  40f:	cd 40                	int    $0x40
  411:	c3                   	ret    
