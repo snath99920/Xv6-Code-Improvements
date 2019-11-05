@@ -21,7 +21,7 @@ main(int argc, char * argv[])
         printf(2, "Invalid priority!\n");
         exit();
     }
-    printf(1, " Process %d\n Priority %d\n", pid, priority);
+    printf(1, "Process %d\n Priority %d\n", pid, priority);
     set_priority(pid, priority);
     exit();
 }

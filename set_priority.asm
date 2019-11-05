@@ -65,7 +65,7 @@ main(int argc, char * argv[])
         exit();
   5c:	e8 71 02 00 00       	call   2d2 <exit>
     }
-    printf(1, " Process %d\n Priority %d\n", pid, priority);
+    printf(1, "Process %d\n Priority %d\n", pid, priority);
   61:	50                   	push   %eax
   62:	56                   	push   %esi
   63:	68 ab 07 00 00       	push   $0x7ab
@@ -607,7 +607,6 @@ SYSCALL(waitx)
  379:	c3                   	ret    
 
 0000037a <set_priority>:
-SYSCALL(set_priority)
  37a:	b8 17 00 00 00       	mov    $0x17,%eax
  37f:	cd 40                	int    $0x40
  381:	c3                   	ret    
@@ -959,7 +958,7 @@ printf(int fd, const char *fmt, ...)
  5e2:	31 ff                	xor    %edi,%edi
  5e4:	e9 8f fe ff ff       	jmp    478 <printf+0x48>
           s = "(null)";
- 5e9:	bb c5 07 00 00       	mov    $0x7c5,%ebx
+ 5e9:	bb c4 07 00 00       	mov    $0x7c4,%ebx
         while(*s != 0){
  5ee:	b8 28 00 00 00       	mov    $0x28,%eax
  5f3:	e9 72 ff ff ff       	jmp    56a <printf+0x13a>

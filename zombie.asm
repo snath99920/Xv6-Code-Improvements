@@ -557,7 +557,6 @@ SYSCALL(waitx)
  329:	c3                   	ret    
 
 0000032a <set_priority>:
-SYSCALL(set_priority)
  32a:	b8 17 00 00 00       	mov    $0x17,%eax
  32f:	cd 40                	int    $0x40
  331:	c3                   	ret    

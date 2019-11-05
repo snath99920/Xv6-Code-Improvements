@@ -55,6 +55,9 @@ struct proc {
   int priority;
 };
 
+// static void wakeup1(void * chan);
+void runinc (void);
+
 // Process memory is laid out contiguously, low addresses first:
 //   text
 //   original data and bss

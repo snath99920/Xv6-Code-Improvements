@@ -1964,7 +1964,6 @@ SYSCALL(waitx)
      db9:	c3                   	ret    
 
 00000dba <set_priority>:
-SYSCALL(set_priority)
      dba:	b8 17 00 00 00       	mov    $0x17,%eax
      dbf:	cd 40                	int    $0x40
      dc1:	c3                   	ret    

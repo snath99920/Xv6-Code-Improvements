@@ -100,7 +100,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
-
+  p->priority = 60;
   p->ctime = ticks;
   p->etime = 0;
   p->rtime = 0;
@@ -257,6 +257,7 @@ exit(void)
       curproc->ofile[fd] = 0;
     }
   }
+  
 
   begin_op();
   iput(curproc->cwd);
@@ -355,6 +356,29 @@ scheduler(void)
         if(p->state != RUNNABLE)
           continue;
       #else
+      #ifdef FCFS
+
+        struct proc * mp = 0;
+        if(p->state != RUNNABLE)
+          continue;
+        
+        // if(p->pid > 1)
+        // {
+          if(mp != 0)
+          {
+            if(p->ctime < mp->ctime)
+              mp = p;
+          }
+          else
+            mp = p;
+        // }
+
+        if(mp != 0 && mp->state == RUNNABLE)
+          p = mp;
+          // if(mp->state == RUNNABLE)
+            // p = mp;
+      // }
+      #else
       #ifdef PRIORITY
         struct proc *np = 0;
         struct proc * hp = 0;
@@ -364,7 +388,7 @@ scheduler(void)
             continue;
 
         for(np = ptable.proc; np < &ptable.proc[NPROC]; np++){
-          if(np->state != RUNNABLE)
+          if(np->state == RUNNABLE)
           {
             if(hp->priority > np->priority)
               hp = np;
@@ -374,7 +398,8 @@ scheduler(void)
           p = hp;
       #endif
       #endif
-      if(p){
+      #endif
+      if(p != 0){
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
@@ -390,7 +415,9 @@ scheduler(void)
         // It should have changed its p->state before coming back.
         c->proc = 0;
        }
+    // #ifdef DEFAULT
     }
+    // #endif
     release(&ptable.lock);
 
   }
@@ -426,10 +453,12 @@ sched(void)
 void
 yield(void)
 {
-  acquire(&ptable.lock);  //DOC: yieldlock
-  myproc()->state = RUNNABLE;
-  sched();
-  release(&ptable.lock);
+  #ifndef FCFS
+    acquire(&ptable.lock);  //DOC: yieldlock
+    myproc()->state = RUNNABLE;
+    sched();
+    release(&ptable.lock);
+  #endif
 }
 
 // A fork child's very first scheduling by scheduler()
@@ -633,10 +662,11 @@ set_priority(int pid, int priority)
       temp = p->priority;
       cprintf("%d: Old Priority\n", temp);
       p->priority = priority;
+      cprintf("%d: New Priority\n", p->priority);
       break;
     }
   }
   release(&ptable.lock);
 
-  return temp;
+  return pid;
 }
